@@ -5,11 +5,12 @@ using UnityEngine;
 public class ActivePlayer : MonoBehaviour
 {
     private PlayerManager manager;
-    Projectile projectile;
+    ActiveWeapon activeWeapon;
 
     private void Start()
     {
-        projectile = GetComponent<Projectile>();
+        activeWeapon = GetComponent<ActiveWeapon>();
+
     }
     public void AssignManager(PlayerManager theManager)
     {
@@ -18,6 +19,6 @@ public class ActivePlayer : MonoBehaviour
     public void FireProjectile()
     {
         manager.ChangeTurn();
-        projectile.ShootProjectile();
+        activeWeapon.ShootLaser();
     }
 }

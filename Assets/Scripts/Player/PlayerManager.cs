@@ -14,7 +14,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI seconds;
     public GameObject P1Cam;
     public GameObject P2Cam;
-
+    public GameObject P1Won;
+    public GameObject P2Won;
     private ActivePlayer currentPlayer;
     private float currentTurnTime;
     private float currentDelay;
@@ -70,6 +71,24 @@ public class PlayerManager : MonoBehaviour
         }
         ResetTimer();
         UpdateTimeVisual();
+    }
+
+    public void ShowWin()
+    {
+        if (playerOne == currentPlayer && playerTwo.GetComponent<HealthBar>().currentHealth <= 0)
+        {
+            P1Won.SetActive(true);
+        }
+        else if(playerTwo == currentPlayer && playerOne.GetComponent<HealthBar>().currentHealth <= 0)
+        {
+            P2Won.SetActive(true);
+        }
+        else
+        {
+            P1Won.SetActive(false);
+            P2Won.SetActive(false);
+        }
+
     }
     private void ResetTimer()
     {

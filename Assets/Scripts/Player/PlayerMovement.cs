@@ -7,13 +7,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerManager manager;
 
     ////Camera
-    //[SerializeField] private Camera characterCamera;
-    //[SerializeField] private float speedH = 2.0f;
-    //[SerializeField] private float speedV = 2.0f;
-    //[SerializeField] private float pitchClamp = 90;
+    [SerializeField] private Camera characterCamera;
+    [SerializeField] private float speedH = 2.0f;
+    [SerializeField] private float speedV = 2.0f;
+    [SerializeField] private float pitchClamp = 90;
 
-    //private float yaw = 0.0f;
-    //private float pitch = 0.0f;
+    private float yaw = 0.0f;
+    private float pitch = 0.0f;
 
     //player
     public Transform player;
@@ -30,9 +30,6 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded = false;
     private float distToGround = 0.5f;
 
-
-    //gun + bullet
-
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Movement();
             Shoot();
-            //ReadRotationInput();
+            ReadRotationInput();
         }
         
     }
@@ -105,16 +102,37 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = false;
         }
     }
+    private void ReadRotationInput()
+    {
+        yaw += speedH * Input.GetAxis("Mouse X");
+        pitch -= speedV * Input.GetAxis("Mouse Y");
+        pitch = Mathf.Clamp(pitch, -pitchClamp, pitchClamp);
 
-
-    //private void ReadRotationInput()
-    //{
-    //    yaw += speedH * Input.GetAxis("Mouse X");
-    //    pitch -= speedV * Input.GetAxis("Mouse Y");
-    //    pitch = Mathf.Clamp(pitch, -pitchClamp, pitchClamp);
-
-    //    characterCamera.transform.localEulerAngles = new Vector3(pitch, 0.0f, 0.0f);
-    //    transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);
-    //}
-
+        characterCamera.transform.localEulerAngles = new Vector3(pitch, 0.0f, 0.0f);
+        transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.CompareTag("Slow"))
+        {
+            movementSpeed = movementSpeed * .2f ;
+            Debug.Log("SLowed");
+        }
+        if(other.gameObject.CompareTag("Fast"))
+        {
+            movementSpeed = movementSpeed * 1.05f;
+                Debug.Log("Fast");
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Slow"))
+        {
+            movementSpeed = movementSpeed * 1;
+        }
+        if (other.gameObject.CompareTag("Fast"))
+        {
+            movementSpeed = movementSpeed * 1;
+        }
+    }
 }

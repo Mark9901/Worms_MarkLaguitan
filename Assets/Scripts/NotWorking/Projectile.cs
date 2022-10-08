@@ -18,12 +18,4 @@ public class Projectile : MonoBehaviour
         var projectileObject = Instantiate(projectile, firePoint.position, firePoint.rotation) as GameObject;
         projectileObject.GetComponent<Rigidbody>().velocity = -firePoint.forward * projectileSpeed;
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Player");
-        }
-    }
 }
