@@ -14,6 +14,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI seconds;
     public GameObject P1Cam;
     public GameObject P2Cam;
+    public GameObject P1MiniCam;
+    public GameObject P2MiniCam;
+    public GameObject miniMapTexture1;
+    public GameObject miniMapTexture2;
+
     public GameObject P1Won;
     public GameObject P2Won;
     private ActivePlayer currentPlayer;
@@ -62,12 +67,20 @@ public class PlayerManager : MonoBehaviour
             currentPlayer = playerTwo;
             P2Cam.SetActive(true);
             P1Cam.SetActive(false);
+            P2MiniCam.SetActive(true);
+            P1MiniCam.SetActive(false);
+            miniMapTexture2.SetActive(true);
+            miniMapTexture1.SetActive(false);
         }
         else if(playerTwo == currentPlayer)
         {
             currentPlayer = playerOne;
             P1Cam.SetActive(true);
             P2Cam.SetActive(false);
+            P2MiniCam.SetActive(false);
+            P1MiniCam.SetActive(true);
+            miniMapTexture2.SetActive(false);
+            miniMapTexture1.SetActive(true);
         }
         ResetTimer();
         UpdateTimeVisual();
