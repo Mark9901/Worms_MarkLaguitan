@@ -81,8 +81,11 @@ public class PlayerMovement : MonoBehaviour
         {
             ActivePlayer currentPlayer = manager.GetCurrentPlayer();
             currentPlayer.FireProjectile();
+
         }
     }
+
+
 
     void Jump()
     {
